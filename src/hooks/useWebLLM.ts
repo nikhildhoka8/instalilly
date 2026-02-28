@@ -3,15 +3,13 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useModelStore } from "@/stores/model-store";
 
-// MOCK MODE: Set to true to skip actual model loading
-const MOCK_MODE = true;
-
 export function useWebLLM(autoInit = false) {
   const {
     status,
     loadProgress,
     loadingMessage,
     error,
+    engine,
     setStatus,
     setProgress,
     setReady,
@@ -27,29 +25,16 @@ export function useWebLLM(autoInit = false) {
 
     setStatus("loading");
 
-    if (MOCK_MODE) {
-      // Simulate loading progress
-      for (let i = 0; i <= 100; i += 20) {
-        await new Promise((r) => setTimeout(r, 200));
-        setProgress(i / 100, `Loading model... ${i}%`);
-      }
-      setReady();
-      return;
-    }
-
-    // Real WebLLM initialization would go here
-    // Commented out for now
-    /*
     try {
       const { initializeWebLLM, DEFAULT_MODEL } = await import("@/lib/webllm");
       const eng = await initializeWebLLM((progress, message) => {
         setProgress(progress, message);
       }, DEFAULT_MODEL);
-      setReady();
+      setReady(eng);
     } catch (err) {
+      console.error("Failed to initialize WebLLM:", err);
       setError(err instanceof Error ? err.message : "Failed to initialize model");
     }
-    */
   }, [status, setStatus, setProgress, setReady, setError]);
 
   // Auto-initialize on mount if autoInit is true
@@ -65,6 +50,7 @@ export function useWebLLM(autoInit = false) {
     loadProgress,
     loadingMessage,
     error,
+    engine,
     isReady: status === "ready",
     isLoading: status === "loading",
     initialize,

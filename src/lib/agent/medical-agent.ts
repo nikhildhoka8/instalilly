@@ -1,5 +1,8 @@
-import type { MLCEngine, ChatCompletionMessageParam } from "@mlc-ai/web-llm";
+import type { MLCEngine, WebWorkerMLCEngine, ChatCompletionMessageParam } from "@mlc-ai/web-llm";
 import type { Attachment, PatientContext } from "@/types";
+
+// Engine type that works with both MLCEngine and WebWorkerMLCEngine
+type ChatEngine = MLCEngine | WebWorkerMLCEngine;
 
 // System prompts for the medical assistant
 const SYSTEM_PROMPT = `You are AgentMD, a medical assistant helping doctors prepare for patient visits.
@@ -38,10 +41,10 @@ export interface AgentStep {
 type StepCallback = (step: AgentStep) => void;
 
 export class MedicalAgent {
-  private engine: MLCEngine;
+  private engine: ChatEngine;
   private conversationHistory: ChatCompletionMessageParam[] = [];
 
-  constructor(engine: MLCEngine) {
+  constructor(engine: ChatEngine) {
     this.engine = engine;
     this.reset();
   }
@@ -193,6 +196,6 @@ export class MedicalAgent {
 }
 
 // Factory function
-export function createMedicalAgent(engine: MLCEngine): MedicalAgent {
+export function createMedicalAgent(engine: ChatEngine): MedicalAgent {
   return new MedicalAgent(engine);
 }

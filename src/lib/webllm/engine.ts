@@ -50,7 +50,7 @@ export async function initializeWebLLM(
   return initPromise;
 }
 
-export function getEngine(): MLCEngine | null {
+export function getEngine(): WebWorkerMLCEngine | null {
   return engineInstance;
 }
 

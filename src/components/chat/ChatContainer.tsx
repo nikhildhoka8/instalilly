@@ -59,9 +59,10 @@ function AttachmentsDisplay() {
 
 export function ChatContainer() {
   const { initialize, isReady, status: modelStatus } = useWebLLM();
-  const { processInput, isProcessing, reasoningSteps } = useChatAgent();
-  const { messages, status, addMessage, setStatus, clearConversation } = useChatStore();
+  const { processInputStreaming, isProcessing, reasoningSteps } = useChatAgent();
+  const { messages, status, addMessage, updateMessage, setStatus, clearConversation } = useChatStore();
   const [inputValue, setInputValue] = useState("");
+  const [streamingContent, setStreamingContent] = useState("");
 
   // Initialize model on mount
   useEffect(() => {
@@ -92,10 +93,17 @@ export function ChatContainer() {
 
       setStatus("streaming");
       setInputValue("");
+      setStreamingContent("");
+
+      // Create placeholder assistant message for streaming
+      const assistantMessageId = addMessage({
+        role: "assistant",
+        content: "",
+      });
 
       try {
-        // Process with agent
-        const result = await processInput(
+        // Process with streaming
+        const result = await processInputStreaming(
           message.text,
           message.files.map((f) => ({
             id: f.url,
@@ -107,27 +115,35 @@ export function ChatContainer() {
             filename: f.filename || "file",
             url: f.url,
             mediaType: f.mediaType || "application/octet-stream",
-          })) as AttachmentType[]
+          })) as AttachmentType[],
+          null,
+          (token) => {
+            // Update streaming content and message on each token
+            setStreamingContent((prev) => {
+              const newContent = prev + token;
+              updateMessage(assistantMessageId, { content: newContent });
+              return newContent;
+            });
+          }
         );
 
-        // Add assistant response
-        addMessage({
-          role: "assistant",
-          content: result.response,
+        // Update final message with reasoning
+        updateMessage(assistantMessageId, {
           reasoning: result.reasoning,
         });
 
         setStatus("idle");
+        setStreamingContent("");
       } catch (error) {
         console.error("Error processing message:", error);
-        addMessage({
-          role: "assistant",
+        updateMessage(assistantMessageId, {
           content: "I encountered an error processing your request. Please try again.",
         });
         setStatus("error");
+        setStreamingContent("");
       }
     },
-    [isReady, addMessage, setStatus, processInput]
+    [isReady, addMessage, updateMessage, setStatus, processInputStreaming]
   );
 
   const handleSuggestionSelect = useCallback((prompt: string) => {
@@ -164,53 +180,54 @@ export function ChatContainer() {
               <SuggestedPrompts onSelect={handleSuggestionSelect} />
             </ConversationEmptyState>
           ) : (
-            messages.map((msg) => (
-              <Message key={msg.id} from={msg.role}>
-                <MessageContent>
-                  {msg.attachments && msg.attachments.length > 0 && (
-                    <Attachments variant="grid" className="mb-2">
-                      {msg.attachments.map((att) => (
-                        <Attachment
-                          key={att.id}
-                          data={{
-                            id: att.id,
-                            type: "file",
-                            filename: att.filename,
-                            url: att.url,
-                            mediaType: att.mediaType,
-                          }}
-                        >
-                          <AttachmentPreview />
-                        </Attachment>
-                      ))}
-                    </Attachments>
-                  )}
-                  {msg.reasoning && msg.reasoning.length > 0 && (
-                    <Reasoning className="mb-2" defaultOpen={false}>
-                      <ReasoningTrigger />
-                      <ReasoningContent>
-                        {msg.reasoning.join("\n\n")}
-                      </ReasoningContent>
-                    </Reasoning>
-                  )}
-                  <MessageResponse>{msg.content}</MessageResponse>
-                </MessageContent>
-              </Message>
-            ))
-          )}
+            messages.map((msg, index) => {
+              const isLastMessage = index === messages.length - 1;
+              const isStreamingMessage = isLastMessage && msg.role === "assistant" && isProcessing;
 
-          {/* Show reasoning steps during processing */}
-          {isProcessing && reasoningSteps.length > 0 && (
-            <Message from="assistant">
-              <MessageContent>
-                <Reasoning isStreaming>
-                  <ReasoningTrigger />
-                  <ReasoningContent>
-                    {reasoningSteps.map((step) => step.description).join("\n\n")}
-                  </ReasoningContent>
-                </Reasoning>
-              </MessageContent>
-            </Message>
+              return (
+                <Message key={msg.id} from={msg.role}>
+                  <MessageContent>
+                    {msg.attachments && msg.attachments.length > 0 && (
+                      <Attachments variant="grid" className="mb-2">
+                        {msg.attachments.map((att) => (
+                          <Attachment
+                            key={att.id}
+                            data={{
+                              id: att.id,
+                              type: "file",
+                              filename: att.filename,
+                              url: att.url,
+                              mediaType: att.mediaType,
+                            }}
+                          >
+                            <AttachmentPreview />
+                          </Attachment>
+                        ))}
+                      </Attachments>
+                    )}
+                    {/* Show live reasoning steps for streaming message */}
+                    {isStreamingMessage && reasoningSteps.length > 0 && (
+                      <Reasoning className="mb-2" isStreaming defaultOpen>
+                        <ReasoningTrigger />
+                        <ReasoningContent>
+                          {reasoningSteps.map((step) => step.description).join("\n\n")}
+                        </ReasoningContent>
+                      </Reasoning>
+                    )}
+                    {/* Show saved reasoning for completed messages */}
+                    {!isStreamingMessage && msg.reasoning && msg.reasoning.length > 0 && (
+                      <Reasoning className="mb-2" defaultOpen={false}>
+                        <ReasoningTrigger />
+                        <ReasoningContent>
+                          {msg.reasoning.join("\n\n")}
+                        </ReasoningContent>
+                      </Reasoning>
+                    )}
+                    <MessageResponse>{msg.content}</MessageResponse>
+                  </MessageContent>
+                </Message>
+              );
+            })
           )}
         </ConversationContent>
         <ConversationScrollButton />
