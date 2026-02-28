@@ -1,6 +1,9 @@
 import { StateGraph, END } from "@langchain/langgraph";
 import { MedicalAgentState, type MedicalAgentStateType } from "./state";
-import type { MLCEngine, ChatCompletionMessageParam } from "@mlc-ai/web-llm";
+import type { MLCEngine, WebWorkerMLCEngine, ChatCompletionMessageParam } from "@mlc-ai/web-llm";
+
+// Engine type that works with both MLCEngine and WebWorkerMLCEngine
+type ChatEngine = MLCEngine | WebWorkerMLCEngine;
 
 // System prompts for different agent nodes
 const SYSTEM_PROMPTS = {
@@ -30,7 +33,7 @@ type ChatFunction = (
   messages: ChatCompletionMessageParam[]
 ) => Promise<string>;
 
-export function createMedicalAgent(engine: MLCEngine) {
+export function createMedicalAgent(engine: ChatEngine) {
   // Helper function to call the LLM
   const callLLM: ChatFunction = async (messages) => {
     const response = await engine.chat.completions.create({
