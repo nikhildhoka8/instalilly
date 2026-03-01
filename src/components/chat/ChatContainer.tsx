@@ -75,6 +75,11 @@ export function ChatContainer() {
   const [inputValue, setInputValue] = useState("");
   const [streamingContent, setStreamingContent] = useState("");
 
+  // Check if there are completed vitals trend tool calls that need to show charts
+  const hasCompletedVitalsChart = pendingToolCalls.some(
+    (tc) => tc.name === "getVitalsTrend" && tc.status === "completed" && tc.result
+  );
+
   // Initialize model on mount
   useEffect(() => {
     initialize();
@@ -261,8 +266,8 @@ export function ChatContainer() {
             })
           )}
 
-          {/* Tool Approval Panel - shows pending tool calls */}
-          {isAwaitingApproval && <ToolApprovalPanel />}
+          {/* Tool Approval Panel - shows pending tool calls and completed charts */}
+          {(isAwaitingApproval || hasCompletedVitalsChart) && <ToolApprovalPanel />}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
