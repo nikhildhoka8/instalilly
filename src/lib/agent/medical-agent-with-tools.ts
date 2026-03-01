@@ -69,8 +69,8 @@ You have access to the following EHR tools when a patient is connected:
 - getPatientMedications: Get current medications and history (USE THIS TO VIEW MEDICATIONS)
 - getLabResults: Get lab results
 - getVisitHistory: Get visit history
-- getVitals: Get vital signs history
-- getVitalsTrend: Get vitals for charting
+- getVitals: Get vital signs history (raw data)
+- getVitalsTrend: Get vitals formatted for charting - USE THIS when asked about trends over time (e.g., "blood pressure over time", "heart rate trend"). Requires vitalType parameter: "blood_pressure", "heart_rate", "temperature", "weight", "oxygen_saturation", or "respiratory_rate". A visual chart will automatically display.
 
 ## WRITE TOOLS (for modifying data):
 - addMedication: ADD a new medication to patient's record (USE THIS WHEN ASKED TO ADD/PRESCRIBE A MEDICATION)
@@ -79,6 +79,7 @@ You have access to the following EHR tools when a patient is connected:
 IMPORTANT - Tool Selection:
 - When asked to "show", "view", "get", or "list" medications → use getPatientMedications
 - When asked to "add", "prescribe", "start", or "put patient on" a medication → use addMedication
+- When asked about trends "over time", "history of", or to "chart/graph" vitals → use getVitalsTrend with the appropriate vitalType
 - For addMedication, you MUST provide: patientId, medicationName, dosage, frequency, prescribedBy, reason, startDate
 
 When you need to use a tool, respond with a JSON block in this exact format:
@@ -322,6 +323,10 @@ export function removeToolCallBlocks(response: string): string {
   // Remove inline tool calls - match tool_call followed by balanced JSON
   const inlineToolCallPattern = /tool_call\s*\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\}/g;
   result = result.replace(inlineToolCallPattern, "");
+
+  // Remove incomplete/malformed tool calls that may be missing closing braces
+  // Match tool_call followed by { "tool": and capture until we hit text that's clearly not JSON
+  result = result.replace(/tool_call\s*\{\s*"tool"\s*:\s*"[^"]+"\s*,\s*"args"\s*:\s*\{[^}]*\}?\s*\}?/gi, "");
 
   // Remove tool calls with parens
   result = result.replace(/tool_call\s*\(\s*\{[\s\S]*?\}\s*\)/g, "");

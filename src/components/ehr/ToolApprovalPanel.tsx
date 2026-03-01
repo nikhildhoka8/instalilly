@@ -9,6 +9,7 @@ import {
   ToolInput,
   ToolOutput,
 } from "@/components/ai-elements/tool";
+import { VitalsChartToolOutput } from "./VitalsChartToolOutput";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import type { ToolUIPart } from "ai";
@@ -108,7 +109,7 @@ export function ToolApprovalPanel() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
             >
-              <Tool defaultOpen={toolCall.status === "executing" || toolCall.status === "error"}>
+              <Tool defaultOpen={toolCall.status === "executing" || toolCall.status === "error" || (toolCall.name === "getVitalsTrend" && toolCall.status === "completed")}>
                 <ToolHeader
                   type="dynamic-tool"
                   toolName={toolCall.name}
@@ -120,6 +121,10 @@ export function ToolApprovalPanel() {
                   <ToolOutput
                     output={toolCall.result}
                     errorText={toolCall.error}
+                  />
+                  <VitalsChartToolOutput
+                    toolName={toolCall.name}
+                    result={toolCall.result}
                   />
                 </ToolContent>
               </Tool>
@@ -182,6 +187,7 @@ export function ToolCallDisplay({
         )}
 
         <ToolOutput output={result} errorText={error} />
+        <VitalsChartToolOutput toolName={name} result={result} />
       </ToolContent>
     </Tool>
   );
