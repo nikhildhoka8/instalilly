@@ -1,5 +1,3 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { nanoid } from "nanoid";
 import type {
   EHRDatabase,
@@ -10,26 +8,16 @@ import type {
   VitalReading,
   Provider,
 } from "@/types/ehr";
+import initialDatabase from "@/data/ehr-database.json";
 
 // Singleton instance
 let serviceInstance: EHRService | null = null;
 
 export class EHRService {
   private database: EHRDatabase | null = null;
-  private originalDbPath: string;
-  private workingDbPath: string;
   private initialized = false;
 
-  constructor() {
-    this.originalDbPath = path.join(
-      process.cwd(),
-      "src/data/ehr-database.json"
-    );
-    this.workingDbPath = path.join(
-      process.cwd(),
-      "src/data/.ehr-database-working.json"
-    );
-  }
+  constructor() {}
 
   static getInstance(): EHRService {
     if (!serviceInstance) {
@@ -41,45 +29,19 @@ export class EHRService {
   async initialize(): Promise<void> {
     if (this.initialized) return;
 
-    try {
-      // Try to load from working copy first
-      const workingExists = await fs
-        .access(this.workingDbPath)
-        .then(() => true)
-        .catch(() => false);
-
-      if (workingExists) {
-        const data = await fs.readFile(this.workingDbPath, "utf-8");
-        this.database = JSON.parse(data);
-      } else {
-        // Load from original and create working copy
-        const data = await fs.readFile(this.originalDbPath, "utf-8");
-        this.database = JSON.parse(data);
-        await this.saveDatabase();
-      }
-
-      this.initialized = true;
-    } catch (error) {
-      console.error("Failed to initialize EHR database:", error);
-      throw error;
-    }
+    // Load from bundled JSON data
+    this.database = JSON.parse(JSON.stringify(initialDatabase)) as EHRDatabase;
+    this.initialized = true;
   }
 
   private async saveDatabase(): Promise<void> {
+    // In-memory only - changes persist for the session but not across deploys
     if (!this.database) return;
-
     this.database.lastUpdated = new Date().toISOString();
-    await fs.writeFile(
-      this.workingDbPath,
-      JSON.stringify(this.database, null, 2),
-      "utf-8"
-    );
   }
 
   async resetDatabase(): Promise<void> {
-    const data = await fs.readFile(this.originalDbPath, "utf-8");
-    this.database = JSON.parse(data);
-    await this.saveDatabase();
+    this.database = JSON.parse(JSON.stringify(initialDatabase)) as EHRDatabase;
   }
 
   // Patient Operations
