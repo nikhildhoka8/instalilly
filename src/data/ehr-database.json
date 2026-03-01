@@ -4,7 +4,7 @@
   "providers": [
     {
       "id": "prov-001",
-      "name": "Dr. Sarah Chenis",
+      "name": "Dr. Sarah Chen",
       "specialty": "Internal Medicine",
       "npi": "1234567890"
     },
