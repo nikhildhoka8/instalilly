@@ -1,0 +1,948 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-28T00:00:00Z",
+  "providers": [
+    {
+      "id": "prov-001",
+      "name": "Dr. Sarah Chen",
+      "specialty": "Internal Medicine",
+      "npi": "1234567890"
+    },
+    {
+      "id": "prov-002",
+      "name": "Dr. Michael Rodriguez",
+      "specialty": "Cardiology",
+      "npi": "2345678901"
+    },
+    {
+      "id": "prov-003",
+      "name": "Dr. Emily Watson",
+      "specialty": "Endocrinology",
+      "npi": "3456789012"
+    },
+    {
+      "id": "prov-004",
+      "name": "Dr. James Park",
+      "specialty": "Family Medicine",
+      "npi": "4567890123"
+    }
+  ],
+  "patients": [
+    {
+      "id": "pat-001",
+      "name": "Robert Johnson",
+      "dateOfBirth": "1958-03-15",
+      "mrn": "MRN-10001",
+      "gender": "male",
+      "address": {
+        "street": "123 Oak Street",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62701"
+      },
+      "phoneNumber": "(217) 555-0101",
+      "email": "rjohnson@email.com",
+      "emergencyContact": {
+        "name": "Mary Johnson",
+        "relationship": "Spouse",
+        "phoneNumber": "(217) 555-0102"
+      },
+      "insurance": {
+        "provider": "Blue Cross Blue Shield",
+        "policyNumber": "XYZ123456789",
+        "groupNumber": "GRP001"
+      },
+      "primaryCareProvider": "prov-001",
+      "allergies": ["Penicillin", "Sulfa drugs"],
+      "conditions": ["Type 2 Diabetes", "Hypertension", "Hyperlipidemia"],
+      "currentMedications": [
+        { "name": "Metformin", "dosage": "1000mg", "frequency": "twice daily" },
+        { "name": "Lisinopril", "dosage": "20mg", "frequency": "once daily" },
+        { "name": "Atorvastatin", "dosage": "40mg", "frequency": "once daily at bedtime" }
+      ],
+      "drugHistory": [
+        {
+          "id": "drug-001",
+          "medicationName": "Metformin",
+          "startDate": "2020-06-15",
+          "dosage": "500mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-001",
+          "reason": "Type 2 Diabetes management"
+        },
+        {
+          "id": "drug-002",
+          "medicationName": "Metformin",
+          "startDate": "2021-01-10",
+          "dosage": "1000mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-001",
+          "reason": "Dose increase for better glucose control"
+        },
+        {
+          "id": "drug-003",
+          "medicationName": "Lisinopril",
+          "startDate": "2019-03-20",
+          "dosage": "10mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-002",
+          "reason": "Hypertension management"
+        },
+        {
+          "id": "drug-004",
+          "medicationName": "Lisinopril",
+          "startDate": "2022-08-15",
+          "dosage": "20mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-002",
+          "reason": "Blood pressure not controlled at 10mg"
+        },
+        {
+          "id": "drug-005",
+          "medicationName": "Atorvastatin",
+          "startDate": "2020-01-05",
+          "dosage": "20mg",
+          "frequency": "once daily at bedtime",
+          "prescribedBy": "prov-001",
+          "reason": "Hyperlipidemia"
+        },
+        {
+          "id": "drug-006",
+          "medicationName": "Atorvastatin",
+          "startDate": "2023-06-01",
+          "dosage": "40mg",
+          "frequency": "once daily at bedtime",
+          "prescribedBy": "prov-001",
+          "reason": "LDL still elevated"
+        },
+        {
+          "id": "drug-007",
+          "medicationName": "Glipizide",
+          "startDate": "2021-06-01",
+          "endDate": "2022-03-15",
+          "dosage": "5mg",
+          "frequency": "once daily before breakfast",
+          "prescribedBy": "prov-003",
+          "reason": "Additional glucose control",
+          "discontinuedReason": "Hypoglycemia episodes"
+        }
+      ],
+      "visits": [
+        {
+          "id": "visit-001",
+          "date": "2025-09-15",
+          "type": "office",
+          "chiefComplaint": "Annual physical exam",
+          "diagnosis": ["Type 2 Diabetes - controlled", "Hypertension - controlled"],
+          "notes": "Patient reports good adherence to medications. Recommend continued current regimen.",
+          "providerId": "prov-001"
+        },
+        {
+          "id": "visit-002",
+          "date": "2025-11-20",
+          "type": "followup",
+          "chiefComplaint": "Blood pressure monitoring",
+          "diagnosis": ["Hypertension - stable"],
+          "notes": "BP well controlled on current medications. Continue Lisinopril 20mg.",
+          "providerId": "prov-002"
+        },
+        {
+          "id": "visit-003",
+          "date": "2026-01-10",
+          "type": "telehealth",
+          "chiefComplaint": "Medication refill and diabetes follow-up",
+          "diagnosis": ["Type 2 Diabetes - controlled"],
+          "notes": "A1C improved to 6.8%. Patient exercising regularly. Continue current plan.",
+          "providerId": "prov-001"
+        },
+        {
+          "id": "visit-004",
+          "date": "2026-02-15",
+          "type": "office",
+          "chiefComplaint": "Routine check-up",
+          "diagnosis": ["Type 2 Diabetes", "Hypertension", "Hyperlipidemia"],
+          "notes": "All conditions stable. Labs ordered for next visit.",
+          "providerId": "prov-001"
+        }
+      ],
+      "labReports": [
+        {
+          "id": "lab-001",
+          "orderId": "ORD-20250915-001",
+          "orderDate": "2025-09-15",
+          "collectionDate": "2025-09-16",
+          "reportDate": "2025-09-18",
+          "orderingProvider": "prov-001",
+          "labName": "Quest Diagnostics",
+          "status": "completed",
+          "results": [
+            { "name": "HbA1c", "value": "7.2", "unit": "%", "referenceRange": "< 5.7", "status": "high" },
+            { "name": "Fasting Glucose", "value": "132", "unit": "mg/dL", "referenceRange": "70-100", "status": "high" },
+            { "name": "Total Cholesterol", "value": "195", "unit": "mg/dL", "referenceRange": "< 200", "status": "normal" },
+            { "name": "LDL", "value": "118", "unit": "mg/dL", "referenceRange": "< 100", "status": "high" },
+            { "name": "HDL", "value": "45", "unit": "mg/dL", "referenceRange": "> 40", "status": "normal" },
+            { "name": "Triglycerides", "value": "165", "unit": "mg/dL", "referenceRange": "< 150", "status": "high" },
+            { "name": "Creatinine", "value": "1.0", "unit": "mg/dL", "referenceRange": "0.7-1.3", "status": "normal" },
+            { "name": "eGFR", "value": "78", "unit": "mL/min/1.73m2", "referenceRange": "> 60", "status": "normal" }
+          ]
+        },
+        {
+          "id": "lab-002",
+          "orderId": "ORD-20260110-001",
+          "orderDate": "2026-01-10",
+          "collectionDate": "2026-01-11",
+          "reportDate": "2026-01-13",
+          "orderingProvider": "prov-001",
+          "labName": "Quest Diagnostics",
+          "status": "completed",
+          "results": [
+            { "name": "HbA1c", "value": "6.8", "unit": "%", "referenceRange": "< 5.7", "status": "high" },
+            { "name": "Fasting Glucose", "value": "118", "unit": "mg/dL", "referenceRange": "70-100", "status": "high" },
+            { "name": "Total Cholesterol", "value": "178", "unit": "mg/dL", "referenceRange": "< 200", "status": "normal" },
+            { "name": "LDL", "value": "95", "unit": "mg/dL", "referenceRange": "< 100", "status": "normal" },
+            { "name": "HDL", "value": "48", "unit": "mg/dL", "referenceRange": "> 40", "status": "normal" },
+            { "name": "Triglycerides", "value": "142", "unit": "mg/dL", "referenceRange": "< 150", "status": "normal" }
+          ]
+        }
+      ],
+      "vitals": [
+        { "id": "vital-001", "date": "2025-08-15", "type": "blood_pressure", "value": "148/92", "systolic": 148, "diastolic": 92, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-002", "date": "2025-08-15", "type": "heart_rate", "value": "78", "numericValue": 78, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-003", "date": "2025-08-15", "type": "weight", "value": "198", "numericValue": 198, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-004", "date": "2025-09-15", "type": "blood_pressure", "value": "142/88", "systolic": 142, "diastolic": 88, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-005", "date": "2025-09-15", "type": "heart_rate", "value": "74", "numericValue": 74, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-006", "date": "2025-09-15", "type": "weight", "value": "195", "numericValue": 195, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-007", "date": "2025-10-20", "type": "blood_pressure", "value": "138/85", "systolic": 138, "diastolic": 85, "unit": "mmHg", "source": "home", "notes": "Morning reading" },
+        { "id": "vital-008", "date": "2025-11-20", "type": "blood_pressure", "value": "135/82", "systolic": 135, "diastolic": 82, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-009", "date": "2025-11-20", "type": "heart_rate", "value": "72", "numericValue": 72, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-010", "date": "2025-12-10", "type": "blood_pressure", "value": "132/80", "systolic": 132, "diastolic": 80, "unit": "mmHg", "source": "home" },
+        { "id": "vital-011", "date": "2026-01-10", "type": "blood_pressure", "value": "130/78", "systolic": 130, "diastolic": 78, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-012", "date": "2026-01-10", "type": "heart_rate", "value": "70", "numericValue": 70, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-013", "date": "2026-01-10", "type": "weight", "value": "190", "numericValue": 190, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-014", "date": "2026-02-15", "type": "blood_pressure", "value": "128/76", "systolic": 128, "diastolic": 76, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-015", "date": "2026-02-15", "type": "heart_rate", "value": "68", "numericValue": 68, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-016", "date": "2026-02-15", "type": "weight", "value": "188", "numericValue": 188, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-017", "date": "2026-02-15", "type": "oxygen_saturation", "value": "98", "numericValue": 98, "unit": "%", "source": "clinic" }
+      ],
+      "lastVisit": "2026-02-15"
+    },
+    {
+      "id": "pat-002",
+      "name": "Maria Garcia",
+      "dateOfBirth": "1975-07-22",
+      "mrn": "MRN-10002",
+      "gender": "female",
+      "address": {
+        "street": "456 Maple Avenue",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62702"
+      },
+      "phoneNumber": "(217) 555-0203",
+      "email": "mgarcia@email.com",
+      "emergencyContact": {
+        "name": "Carlos Garcia",
+        "relationship": "Husband",
+        "phoneNumber": "(217) 555-0204"
+      },
+      "insurance": {
+        "provider": "Aetna",
+        "policyNumber": "AET987654321",
+        "groupNumber": "GRP002"
+      },
+      "primaryCareProvider": "prov-004",
+      "allergies": ["Aspirin", "NSAIDs"],
+      "conditions": ["Hypothyroidism", "Anxiety disorder", "Migraine"],
+      "currentMedications": [
+        { "name": "Levothyroxine", "dosage": "100mcg", "frequency": "once daily in the morning" },
+        { "name": "Sertraline", "dosage": "50mg", "frequency": "once daily" },
+        { "name": "Sumatriptan", "dosage": "50mg", "frequency": "as needed for migraine" }
+      ],
+      "drugHistory": [
+        {
+          "id": "drug-101",
+          "medicationName": "Levothyroxine",
+          "startDate": "2018-04-10",
+          "dosage": "50mcg",
+          "frequency": "once daily in the morning",
+          "prescribedBy": "prov-003",
+          "reason": "Hypothyroidism"
+        },
+        {
+          "id": "drug-102",
+          "medicationName": "Levothyroxine",
+          "startDate": "2019-06-15",
+          "dosage": "75mcg",
+          "frequency": "once daily in the morning",
+          "prescribedBy": "prov-003",
+          "reason": "TSH still elevated"
+        },
+        {
+          "id": "drug-103",
+          "medicationName": "Levothyroxine",
+          "startDate": "2021-02-20",
+          "dosage": "100mcg",
+          "frequency": "once daily in the morning",
+          "prescribedBy": "prov-003",
+          "reason": "Dose optimization"
+        },
+        {
+          "id": "drug-104",
+          "medicationName": "Sertraline",
+          "startDate": "2022-09-01",
+          "dosage": "25mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-004",
+          "reason": "Anxiety disorder"
+        },
+        {
+          "id": "drug-105",
+          "medicationName": "Sertraline",
+          "startDate": "2022-10-15",
+          "dosage": "50mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-004",
+          "reason": "Increased for better symptom control"
+        },
+        {
+          "id": "drug-106",
+          "medicationName": "Sumatriptan",
+          "startDate": "2020-03-10",
+          "dosage": "50mg",
+          "frequency": "as needed for migraine",
+          "prescribedBy": "prov-004",
+          "reason": "Acute migraine treatment"
+        },
+        {
+          "id": "drug-107",
+          "medicationName": "Propranolol",
+          "startDate": "2021-05-01",
+          "endDate": "2022-01-15",
+          "dosage": "20mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-004",
+          "reason": "Migraine prevention",
+          "discontinuedReason": "Fatigue and dizziness"
+        }
+      ],
+      "visits": [
+        {
+          "id": "visit-101",
+          "date": "2025-10-05",
+          "type": "office",
+          "chiefComplaint": "Thyroid follow-up",
+          "diagnosis": ["Hypothyroidism - controlled"],
+          "notes": "TSH within normal range. Continue current Levothyroxine dose.",
+          "providerId": "prov-003"
+        },
+        {
+          "id": "visit-102",
+          "date": "2025-12-12",
+          "type": "office",
+          "chiefComplaint": "Increased anxiety",
+          "diagnosis": ["Anxiety disorder - stable"],
+          "notes": "Patient reports stress at work. Recommend continued Sertraline, consider therapy referral.",
+          "providerId": "prov-004"
+        },
+        {
+          "id": "visit-103",
+          "date": "2026-02-01",
+          "type": "telehealth",
+          "chiefComplaint": "Frequent migraines",
+          "diagnosis": ["Migraine without aura"],
+          "notes": "3-4 migraines per month. Discussed preventive options. Will try lifestyle modifications first.",
+          "providerId": "prov-004"
+        }
+      ],
+      "labReports": [
+        {
+          "id": "lab-101",
+          "orderId": "ORD-20251005-001",
+          "orderDate": "2025-10-05",
+          "collectionDate": "2025-10-06",
+          "reportDate": "2025-10-08",
+          "orderingProvider": "prov-003",
+          "labName": "LabCorp",
+          "status": "completed",
+          "results": [
+            { "name": "TSH", "value": "2.5", "unit": "mIU/L", "referenceRange": "0.4-4.0", "status": "normal" },
+            { "name": "Free T4", "value": "1.2", "unit": "ng/dL", "referenceRange": "0.8-1.8", "status": "normal" },
+            { "name": "Free T3", "value": "3.1", "unit": "pg/mL", "referenceRange": "2.3-4.2", "status": "normal" }
+          ]
+        },
+        {
+          "id": "lab-102",
+          "orderId": "ORD-20260201-001",
+          "orderDate": "2026-02-01",
+          "collectionDate": "2026-02-02",
+          "reportDate": "2026-02-04",
+          "orderingProvider": "prov-004",
+          "labName": "LabCorp",
+          "status": "completed",
+          "results": [
+            { "name": "CBC - WBC", "value": "6.8", "unit": "K/uL", "referenceRange": "4.5-11.0", "status": "normal" },
+            { "name": "CBC - Hemoglobin", "value": "13.5", "unit": "g/dL", "referenceRange": "12.0-16.0", "status": "normal" },
+            { "name": "CBC - Platelets", "value": "245", "unit": "K/uL", "referenceRange": "150-400", "status": "normal" },
+            { "name": "Vitamin D, 25-OH", "value": "28", "unit": "ng/mL", "referenceRange": "30-100", "status": "low" },
+            { "name": "Vitamin B12", "value": "425", "unit": "pg/mL", "referenceRange": "200-900", "status": "normal" }
+          ]
+        }
+      ],
+      "vitals": [
+        { "id": "vital-101", "date": "2025-08-20", "type": "blood_pressure", "value": "118/76", "systolic": 118, "diastolic": 76, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-102", "date": "2025-08-20", "type": "heart_rate", "value": "72", "numericValue": 72, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-103", "date": "2025-08-20", "type": "weight", "value": "142", "numericValue": 142, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-104", "date": "2025-10-05", "type": "blood_pressure", "value": "120/78", "systolic": 120, "diastolic": 78, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-105", "date": "2025-10-05", "type": "heart_rate", "value": "74", "numericValue": 74, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-106", "date": "2025-10-05", "type": "weight", "value": "144", "numericValue": 144, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-107", "date": "2025-12-12", "type": "blood_pressure", "value": "122/80", "systolic": 122, "diastolic": 80, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-108", "date": "2025-12-12", "type": "heart_rate", "value": "76", "numericValue": 76, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-109", "date": "2026-02-01", "type": "blood_pressure", "value": "116/74", "systolic": 116, "diastolic": 74, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-110", "date": "2026-02-01", "type": "heart_rate", "value": "70", "numericValue": 70, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-111", "date": "2026-02-01", "type": "weight", "value": "143", "numericValue": 143, "unit": "lbs", "source": "clinic" }
+      ],
+      "lastVisit": "2026-02-01"
+    },
+    {
+      "id": "pat-003",
+      "name": "William Thompson",
+      "dateOfBirth": "1948-11-08",
+      "mrn": "MRN-10003",
+      "gender": "male",
+      "address": {
+        "street": "789 Pine Road",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62703"
+      },
+      "phoneNumber": "(217) 555-0305",
+      "email": "wthompson@email.com",
+      "emergencyContact": {
+        "name": "Susan Thompson",
+        "relationship": "Daughter",
+        "phoneNumber": "(217) 555-0306"
+      },
+      "insurance": {
+        "provider": "Medicare",
+        "policyNumber": "1EG4-TE5-MK72",
+        "groupNumber": "N/A"
+      },
+      "primaryCareProvider": "prov-001",
+      "allergies": ["Codeine", "Latex"],
+      "conditions": ["Coronary Artery Disease", "Atrial Fibrillation", "Chronic Kidney Disease Stage 3", "Osteoarthritis"],
+      "currentMedications": [
+        { "name": "Warfarin", "dosage": "5mg", "frequency": "once daily" },
+        { "name": "Metoprolol", "dosage": "50mg", "frequency": "twice daily" },
+        { "name": "Losartan", "dosage": "50mg", "frequency": "once daily" },
+        { "name": "Aspirin", "dosage": "81mg", "frequency": "once daily" },
+        { "name": "Acetaminophen", "dosage": "500mg", "frequency": "as needed for pain" }
+      ],
+      "drugHistory": [
+        {
+          "id": "drug-201",
+          "medicationName": "Warfarin",
+          "startDate": "2019-08-20",
+          "dosage": "5mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-002",
+          "reason": "Atrial fibrillation - stroke prevention"
+        },
+        {
+          "id": "drug-202",
+          "medicationName": "Metoprolol",
+          "startDate": "2017-05-15",
+          "dosage": "25mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-002",
+          "reason": "Rate control for AFib"
+        },
+        {
+          "id": "drug-203",
+          "medicationName": "Metoprolol",
+          "startDate": "2018-02-10",
+          "dosage": "50mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-002",
+          "reason": "Heart rate not adequately controlled"
+        },
+        {
+          "id": "drug-204",
+          "medicationName": "Losartan",
+          "startDate": "2020-01-10",
+          "dosage": "25mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-001",
+          "reason": "CKD - nephroprotection"
+        },
+        {
+          "id": "drug-205",
+          "medicationName": "Losartan",
+          "startDate": "2021-06-20",
+          "dosage": "50mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-001",
+          "reason": "Blood pressure and proteinuria"
+        },
+        {
+          "id": "drug-206",
+          "medicationName": "Aspirin",
+          "startDate": "2015-09-01",
+          "dosage": "81mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-002",
+          "reason": "Coronary artery disease"
+        },
+        {
+          "id": "drug-207",
+          "medicationName": "Atorvastatin",
+          "startDate": "2015-09-01",
+          "endDate": "2023-04-15",
+          "dosage": "40mg",
+          "frequency": "once daily at bedtime",
+          "prescribedBy": "prov-002",
+          "reason": "CAD - LDL management",
+          "discontinuedReason": "Muscle pain (myalgia)"
+        }
+      ],
+      "visits": [
+        {
+          "id": "visit-201",
+          "date": "2025-08-22",
+          "type": "office",
+          "chiefComplaint": "INR check and medication review",
+          "diagnosis": ["Atrial Fibrillation - stable"],
+          "notes": "INR 2.4, within therapeutic range. Continue Warfarin 5mg.",
+          "providerId": "prov-002"
+        },
+        {
+          "id": "visit-202",
+          "date": "2025-11-05",
+          "type": "office",
+          "chiefComplaint": "Knee pain worsening",
+          "diagnosis": ["Osteoarthritis - bilateral knees"],
+          "notes": "Recommend continued acetaminophen. Physical therapy referral. Avoid NSAIDs due to CKD and Warfarin.",
+          "providerId": "prov-001"
+        },
+        {
+          "id": "visit-203",
+          "date": "2026-01-25",
+          "type": "followup",
+          "chiefComplaint": "CKD monitoring",
+          "diagnosis": ["Chronic Kidney Disease Stage 3 - stable"],
+          "notes": "eGFR stable at 48. Continue current management. Avoid nephrotoxic medications.",
+          "providerId": "prov-001"
+        },
+        {
+          "id": "visit-204",
+          "date": "2026-02-20",
+          "type": "office",
+          "chiefComplaint": "Cardiac follow-up",
+          "diagnosis": ["CAD - stable", "AFib - controlled"],
+          "notes": "Heart rate well controlled. No chest pain or shortness of breath. Continue current regimen.",
+          "providerId": "prov-002"
+        }
+      ],
+      "labReports": [
+        {
+          "id": "lab-201",
+          "orderId": "ORD-20250822-001",
+          "orderDate": "2025-08-22",
+          "collectionDate": "2025-08-22",
+          "reportDate": "2025-08-22",
+          "orderingProvider": "prov-002",
+          "labName": "In-house Lab",
+          "status": "completed",
+          "results": [
+            { "name": "INR", "value": "2.4", "unit": "", "referenceRange": "2.0-3.0", "status": "normal" },
+            { "name": "PT", "value": "26.5", "unit": "seconds", "referenceRange": "11-13.5", "status": "high" }
+          ]
+        },
+        {
+          "id": "lab-202",
+          "orderId": "ORD-20260125-001",
+          "orderDate": "2026-01-25",
+          "collectionDate": "2026-01-26",
+          "reportDate": "2026-01-28",
+          "orderingProvider": "prov-001",
+          "labName": "Quest Diagnostics",
+          "status": "completed",
+          "results": [
+            { "name": "Creatinine", "value": "1.6", "unit": "mg/dL", "referenceRange": "0.7-1.3", "status": "high" },
+            { "name": "eGFR", "value": "48", "unit": "mL/min/1.73m2", "referenceRange": "> 60", "status": "low" },
+            { "name": "BUN", "value": "28", "unit": "mg/dL", "referenceRange": "7-20", "status": "high" },
+            { "name": "Potassium", "value": "4.8", "unit": "mEq/L", "referenceRange": "3.5-5.0", "status": "normal" },
+            { "name": "Sodium", "value": "140", "unit": "mEq/L", "referenceRange": "136-145", "status": "normal" },
+            { "name": "Urine Albumin/Creatinine Ratio", "value": "45", "unit": "mg/g", "referenceRange": "< 30", "status": "high" }
+          ]
+        },
+        {
+          "id": "lab-203",
+          "orderId": "ORD-20260220-001",
+          "orderDate": "2026-02-20",
+          "collectionDate": "2026-02-20",
+          "reportDate": "2026-02-20",
+          "orderingProvider": "prov-002",
+          "labName": "In-house Lab",
+          "status": "completed",
+          "results": [
+            { "name": "INR", "value": "2.6", "unit": "", "referenceRange": "2.0-3.0", "status": "normal" }
+          ]
+        }
+      ],
+      "vitals": [
+        { "id": "vital-201", "date": "2025-08-22", "type": "blood_pressure", "value": "138/82", "systolic": 138, "diastolic": 82, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-202", "date": "2025-08-22", "type": "heart_rate", "value": "68", "numericValue": 68, "unit": "bpm", "source": "clinic", "notes": "Irregular rhythm - AFib" },
+        { "id": "vital-203", "date": "2025-08-22", "type": "weight", "value": "175", "numericValue": 175, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-204", "date": "2025-11-05", "type": "blood_pressure", "value": "142/85", "systolic": 142, "diastolic": 85, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-205", "date": "2025-11-05", "type": "heart_rate", "value": "72", "numericValue": 72, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-206", "date": "2025-12-15", "type": "blood_pressure", "value": "140/84", "systolic": 140, "diastolic": 84, "unit": "mmHg", "source": "home" },
+        { "id": "vital-207", "date": "2026-01-25", "type": "blood_pressure", "value": "136/80", "systolic": 136, "diastolic": 80, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-208", "date": "2026-01-25", "type": "heart_rate", "value": "66", "numericValue": 66, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-209", "date": "2026-01-25", "type": "weight", "value": "173", "numericValue": 173, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-210", "date": "2026-02-20", "type": "blood_pressure", "value": "134/78", "systolic": 134, "diastolic": 78, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-211", "date": "2026-02-20", "type": "heart_rate", "value": "64", "numericValue": 64, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-212", "date": "2026-02-20", "type": "oxygen_saturation", "value": "96", "numericValue": 96, "unit": "%", "source": "clinic" }
+      ],
+      "lastVisit": "2026-02-20"
+    },
+    {
+      "id": "pat-004",
+      "name": "Jennifer Lee",
+      "dateOfBirth": "1990-04-18",
+      "mrn": "MRN-10004",
+      "gender": "female",
+      "address": {
+        "street": "321 Elm Street",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62704"
+      },
+      "phoneNumber": "(217) 555-0407",
+      "emergencyContact": {
+        "name": "David Lee",
+        "relationship": "Father",
+        "phoneNumber": "(217) 555-0408"
+      },
+      "insurance": {
+        "provider": "United Healthcare",
+        "policyNumber": "UHC456789012",
+        "groupNumber": "GRP003"
+      },
+      "primaryCareProvider": "prov-004",
+      "allergies": ["Amoxicillin"],
+      "conditions": ["Asthma", "Seasonal Allergies", "GERD"],
+      "currentMedications": [
+        { "name": "Albuterol inhaler", "dosage": "90mcg", "frequency": "as needed for breathing" },
+        { "name": "Fluticasone inhaler", "dosage": "110mcg", "frequency": "2 puffs twice daily" },
+        { "name": "Cetirizine", "dosage": "10mg", "frequency": "once daily" },
+        { "name": "Omeprazole", "dosage": "20mg", "frequency": "once daily before breakfast" }
+      ],
+      "drugHistory": [
+        {
+          "id": "drug-301",
+          "medicationName": "Albuterol inhaler",
+          "startDate": "2015-06-10",
+          "dosage": "90mcg",
+          "frequency": "as needed for breathing",
+          "prescribedBy": "prov-004",
+          "reason": "Asthma rescue medication"
+        },
+        {
+          "id": "drug-302",
+          "medicationName": "Fluticasone inhaler",
+          "startDate": "2018-09-15",
+          "dosage": "110mcg",
+          "frequency": "2 puffs twice daily",
+          "prescribedBy": "prov-004",
+          "reason": "Asthma maintenance therapy"
+        },
+        {
+          "id": "drug-303",
+          "medicationName": "Cetirizine",
+          "startDate": "2016-03-01",
+          "dosage": "10mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-004",
+          "reason": "Seasonal allergies"
+        },
+        {
+          "id": "drug-304",
+          "medicationName": "Omeprazole",
+          "startDate": "2023-08-20",
+          "dosage": "20mg",
+          "frequency": "once daily before breakfast",
+          "prescribedBy": "prov-004",
+          "reason": "GERD symptoms"
+        },
+        {
+          "id": "drug-305",
+          "medicationName": "Montelukast",
+          "startDate": "2019-04-01",
+          "endDate": "2021-06-15",
+          "dosage": "10mg",
+          "frequency": "once daily at bedtime",
+          "prescribedBy": "prov-004",
+          "reason": "Asthma and allergy control",
+          "discontinuedReason": "Mood changes reported"
+        }
+      ],
+      "visits": [
+        {
+          "id": "visit-301",
+          "date": "2025-09-28",
+          "type": "office",
+          "chiefComplaint": "Annual wellness exam",
+          "diagnosis": ["Asthma - well controlled"],
+          "notes": "Asthma well controlled on current regimen. PFTs normal. Continue maintenance inhaler.",
+          "providerId": "prov-004"
+        },
+        {
+          "id": "visit-302",
+          "date": "2025-11-15",
+          "type": "telehealth",
+          "chiefComplaint": "Heartburn worsening",
+          "diagnosis": ["GERD - exacerbation"],
+          "notes": "Increased stress and coffee intake. Recommended dietary modifications. Continue Omeprazole.",
+          "providerId": "prov-004"
+        },
+        {
+          "id": "visit-303",
+          "date": "2026-02-10",
+          "type": "office",
+          "chiefComplaint": "Asthma follow-up",
+          "diagnosis": ["Asthma - controlled", "Allergic rhinitis"],
+          "notes": "Spring allergies starting. Increased Cetirizine may be needed. Peak flow stable.",
+          "providerId": "prov-004"
+        }
+      ],
+      "labReports": [
+        {
+          "id": "lab-301",
+          "orderId": "ORD-20250928-001",
+          "orderDate": "2025-09-28",
+          "collectionDate": "2025-09-29",
+          "reportDate": "2025-10-01",
+          "orderingProvider": "prov-004",
+          "labName": "LabCorp",
+          "status": "completed",
+          "results": [
+            { "name": "CBC - WBC", "value": "7.2", "unit": "K/uL", "referenceRange": "4.5-11.0", "status": "normal" },
+            { "name": "CBC - Hemoglobin", "value": "14.1", "unit": "g/dL", "referenceRange": "12.0-16.0", "status": "normal" },
+            { "name": "CBC - Eosinophils", "value": "5.2", "unit": "%", "referenceRange": "1-4", "status": "high" },
+            { "name": "IgE, Total", "value": "185", "unit": "IU/mL", "referenceRange": "< 100", "status": "high" }
+          ]
+        }
+      ],
+      "vitals": [
+        { "id": "vital-301", "date": "2025-09-28", "type": "blood_pressure", "value": "112/72", "systolic": 112, "diastolic": 72, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-302", "date": "2025-09-28", "type": "heart_rate", "value": "68", "numericValue": 68, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-303", "date": "2025-09-28", "type": "weight", "value": "128", "numericValue": 128, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-304", "date": "2025-09-28", "type": "respiratory_rate", "value": "16", "numericValue": 16, "unit": "breaths/min", "source": "clinic" },
+        { "id": "vital-305", "date": "2025-09-28", "type": "oxygen_saturation", "value": "99", "numericValue": 99, "unit": "%", "source": "clinic" },
+        { "id": "vital-306", "date": "2026-02-10", "type": "blood_pressure", "value": "110/70", "systolic": 110, "diastolic": 70, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-307", "date": "2026-02-10", "type": "heart_rate", "value": "72", "numericValue": 72, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-308", "date": "2026-02-10", "type": "weight", "value": "130", "numericValue": 130, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-309", "date": "2026-02-10", "type": "oxygen_saturation", "value": "98", "numericValue": 98, "unit": "%", "source": "clinic" }
+      ],
+      "lastVisit": "2026-02-10"
+    },
+    {
+      "id": "pat-005",
+      "name": "James Wilson",
+      "dateOfBirth": "1965-12-03",
+      "mrn": "MRN-10005",
+      "gender": "male",
+      "address": {
+        "street": "567 Birch Lane",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62705"
+      },
+      "phoneNumber": "(217) 555-0509",
+      "email": "jwilson@email.com",
+      "emergencyContact": {
+        "name": "Patricia Wilson",
+        "relationship": "Wife",
+        "phoneNumber": "(217) 555-0510"
+      },
+      "insurance": {
+        "provider": "Cigna",
+        "policyNumber": "CGN789012345",
+        "groupNumber": "GRP004"
+      },
+      "primaryCareProvider": "prov-001",
+      "allergies": [],
+      "conditions": ["Type 2 Diabetes", "Obesity", "Sleep Apnea", "Depression"],
+      "currentMedications": [
+        { "name": "Metformin", "dosage": "1000mg", "frequency": "twice daily" },
+        { "name": "Semaglutide", "dosage": "1mg", "frequency": "once weekly" },
+        { "name": "Bupropion", "dosage": "150mg", "frequency": "once daily" }
+      ],
+      "drugHistory": [
+        {
+          "id": "drug-401",
+          "medicationName": "Metformin",
+          "startDate": "2018-03-15",
+          "dosage": "500mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-001",
+          "reason": "Type 2 Diabetes"
+        },
+        {
+          "id": "drug-402",
+          "medicationName": "Metformin",
+          "startDate": "2019-01-10",
+          "dosage": "1000mg",
+          "frequency": "twice daily",
+          "prescribedBy": "prov-001",
+          "reason": "Inadequate glucose control"
+        },
+        {
+          "id": "drug-403",
+          "medicationName": "Semaglutide",
+          "startDate": "2024-06-01",
+          "dosage": "0.25mg",
+          "frequency": "once weekly",
+          "prescribedBy": "prov-003",
+          "reason": "Weight management and diabetes control"
+        },
+        {
+          "id": "drug-404",
+          "medicationName": "Semaglutide",
+          "startDate": "2024-07-01",
+          "dosage": "0.5mg",
+          "frequency": "once weekly",
+          "prescribedBy": "prov-003",
+          "reason": "Dose escalation"
+        },
+        {
+          "id": "drug-405",
+          "medicationName": "Semaglutide",
+          "startDate": "2024-08-01",
+          "dosage": "1mg",
+          "frequency": "once weekly",
+          "prescribedBy": "prov-003",
+          "reason": "Target dose reached"
+        },
+        {
+          "id": "drug-406",
+          "medicationName": "Bupropion",
+          "startDate": "2023-02-15",
+          "dosage": "150mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-004",
+          "reason": "Depression"
+        },
+        {
+          "id": "drug-407",
+          "medicationName": "Sitagliptin",
+          "startDate": "2020-05-01",
+          "endDate": "2024-05-28",
+          "dosage": "100mg",
+          "frequency": "once daily",
+          "prescribedBy": "prov-003",
+          "reason": "Added for glucose control",
+          "discontinuedReason": "Switched to Semaglutide for weight benefit"
+        }
+      ],
+      "visits": [
+        {
+          "id": "visit-401",
+          "date": "2025-08-10",
+          "type": "office",
+          "chiefComplaint": "Diabetes and weight management follow-up",
+          "diagnosis": ["Type 2 Diabetes - improving", "Obesity - improving"],
+          "notes": "Lost 25 lbs on Semaglutide. A1C down to 7.0%. Continue current regimen.",
+          "providerId": "prov-003"
+        },
+        {
+          "id": "visit-402",
+          "date": "2025-11-18",
+          "type": "office",
+          "chiefComplaint": "Sleep apnea CPAP check",
+          "diagnosis": ["Obstructive Sleep Apnea - controlled"],
+          "notes": "CPAP compliance good. AHI reduced to 4. Weight loss helping. May need mask refitting.",
+          "providerId": "prov-001"
+        },
+        {
+          "id": "visit-403",
+          "date": "2026-01-20",
+          "type": "telehealth",
+          "chiefComplaint": "Depression follow-up",
+          "diagnosis": ["Major Depressive Disorder - stable"],
+          "notes": "Mood improved with weight loss and better sleep. Continue Bupropion. PHQ-9 score: 6.",
+          "providerId": "prov-004"
+        },
+        {
+          "id": "visit-404",
+          "date": "2026-02-25",
+          "type": "office",
+          "chiefComplaint": "Diabetes management",
+          "diagnosis": ["Type 2 Diabetes - controlled", "Obesity - BMI improving"],
+          "notes": "A1C now 6.5%. Total weight loss 35 lbs. Excellent progress. Continue Semaglutide.",
+          "providerId": "prov-003"
+        }
+      ],
+      "labReports": [
+        {
+          "id": "lab-401",
+          "orderId": "ORD-20250810-001",
+          "orderDate": "2025-08-10",
+          "collectionDate": "2025-08-11",
+          "reportDate": "2025-08-13",
+          "orderingProvider": "prov-003",
+          "labName": "Quest Diagnostics",
+          "status": "completed",
+          "results": [
+            { "name": "HbA1c", "value": "7.0", "unit": "%", "referenceRange": "< 5.7", "status": "high" },
+            { "name": "Fasting Glucose", "value": "128", "unit": "mg/dL", "referenceRange": "70-100", "status": "high" },
+            { "name": "Total Cholesterol", "value": "210", "unit": "mg/dL", "referenceRange": "< 200", "status": "high" },
+            { "name": "LDL", "value": "125", "unit": "mg/dL", "referenceRange": "< 100", "status": "high" },
+            { "name": "HDL", "value": "38", "unit": "mg/dL", "referenceRange": "> 40", "status": "low" },
+            { "name": "Triglycerides", "value": "235", "unit": "mg/dL", "referenceRange": "< 150", "status": "high" },
+            { "name": "ALT", "value": "42", "unit": "U/L", "referenceRange": "7-56", "status": "normal" },
+            { "name": "AST", "value": "35", "unit": "U/L", "referenceRange": "10-40", "status": "normal" }
+          ]
+        },
+        {
+          "id": "lab-402",
+          "orderId": "ORD-20260225-001",
+          "orderDate": "2026-02-25",
+          "collectionDate": "2026-02-26",
+          "reportDate": "2026-02-27",
+          "orderingProvider": "prov-003",
+          "labName": "Quest Diagnostics",
+          "status": "completed",
+          "results": [
+            { "name": "HbA1c", "value": "6.5", "unit": "%", "referenceRange": "< 5.7", "status": "high" },
+            { "name": "Fasting Glucose", "value": "108", "unit": "mg/dL", "referenceRange": "70-100", "status": "high" },
+            { "name": "Total Cholesterol", "value": "185", "unit": "mg/dL", "referenceRange": "< 200", "status": "normal" },
+            { "name": "LDL", "value": "105", "unit": "mg/dL", "referenceRange": "< 100", "status": "high" },
+            { "name": "HDL", "value": "42", "unit": "mg/dL", "referenceRange": "> 40", "status": "normal" },
+            { "name": "Triglycerides", "value": "178", "unit": "mg/dL", "referenceRange": "< 150", "status": "high" }
+          ]
+        }
+      ],
+      "vitals": [
+        { "id": "vital-401", "date": "2025-06-01", "type": "blood_pressure", "value": "142/92", "systolic": 142, "diastolic": 92, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-402", "date": "2025-06-01", "type": "heart_rate", "value": "82", "numericValue": 82, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-403", "date": "2025-06-01", "type": "weight", "value": "268", "numericValue": 268, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-404", "date": "2025-08-10", "type": "blood_pressure", "value": "138/88", "systolic": 138, "diastolic": 88, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-405", "date": "2025-08-10", "type": "heart_rate", "value": "78", "numericValue": 78, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-406", "date": "2025-08-10", "type": "weight", "value": "253", "numericValue": 253, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-407", "date": "2025-10-15", "type": "blood_pressure", "value": "134/84", "systolic": 134, "diastolic": 84, "unit": "mmHg", "source": "home" },
+        { "id": "vital-408", "date": "2025-10-15", "type": "weight", "value": "245", "numericValue": 245, "unit": "lbs", "source": "home" },
+        { "id": "vital-409", "date": "2025-11-18", "type": "blood_pressure", "value": "130/82", "systolic": 130, "diastolic": 82, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-410", "date": "2025-11-18", "type": "heart_rate", "value": "74", "numericValue": 74, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-411", "date": "2025-11-18", "type": "weight", "value": "240", "numericValue": 240, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-412", "date": "2026-01-20", "type": "blood_pressure", "value": "128/80", "systolic": 128, "diastolic": 80, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-413", "date": "2026-01-20", "type": "weight", "value": "238", "numericValue": 238, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-414", "date": "2026-02-25", "type": "blood_pressure", "value": "126/78", "systolic": 126, "diastolic": 78, "unit": "mmHg", "source": "clinic" },
+        { "id": "vital-415", "date": "2026-02-25", "type": "heart_rate", "value": "70", "numericValue": 70, "unit": "bpm", "source": "clinic" },
+        { "id": "vital-416", "date": "2026-02-25", "type": "weight", "value": "233", "numericValue": 233, "unit": "lbs", "source": "clinic" },
+        { "id": "vital-417", "date": "2026-02-25", "type": "oxygen_saturation", "value": "97", "numericValue": 97, "unit": "%", "source": "clinic" }
+      ],
+      "lastVisit": "2026-02-25"
+    }
+  ]
+}

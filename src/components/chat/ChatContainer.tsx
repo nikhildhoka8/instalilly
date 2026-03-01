@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useWebLLM, useChatAgent } from "@/hooks";
+import { useWebLLM, useChatAgentWithTools } from "@/hooks";
 import { useChatStore } from "@/stores/chat-store";
+import { useEHRStore } from "@/stores/ehr-store";
 import {
   Conversation,
   ConversationContent,
@@ -35,9 +36,17 @@ import {
   AttachmentRemove,
 } from "@/components/ai-elements/attachments";
 import { Reasoning, ReasoningContent, ReasoningTrigger } from "@/components/ai-elements/reasoning";
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import {
+  EHRConnectorMenuItem,
+  EHRConnectionBadge,
+  PatientSelectionDialog,
+  ToolApprovalPanel,
+} from "@/components/ehr";
+import { useToolCallStore } from "@/stores/tool-call-store";
 import { ModelStatus } from "./ModelStatus";
 import { SuggestedPrompts } from "./SuggestedPrompts";
-import { Stethoscope, Mic, ImageIcon, Video } from "lucide-react";
+import { Stethoscope, Mic } from "lucide-react";
 import type { Attachment as AttachmentType } from "@/types";
 
 function AttachmentsDisplay() {
@@ -59,8 +68,10 @@ function AttachmentsDisplay() {
 
 export function ChatContainer() {
   const { initialize, isReady, status: modelStatus } = useWebLLM();
-  const { processInputStreaming, isProcessing, reasoningSteps } = useChatAgent();
+  const { processInputWithTools, isProcessing, reasoningSteps } = useChatAgentWithTools();
   const { messages, status, addMessage, updateMessage, setStatus, clearConversation } = useChatStore();
+  const { selectedPatient } = useEHRStore();
+  const { pendingToolCalls, isAwaitingApproval } = useToolCallStore();
   const [inputValue, setInputValue] = useState("");
   const [streamingContent, setStreamingContent] = useState("");
 
@@ -102,8 +113,24 @@ export function ChatContainer() {
       });
 
       try {
-        // Process with streaming
-        const result = await processInputStreaming(
+        // Build patient context if connected
+        const patientContext = selectedPatient
+          ? {
+              patient: {
+                id: selectedPatient.id,
+                name: selectedPatient.name,
+                dateOfBirth: selectedPatient.dateOfBirth,
+                mrn: selectedPatient.mrn,
+                allergies: selectedPatient.allergies,
+                currentMedications: selectedPatient.currentMedications,
+                conditions: selectedPatient.conditions,
+                lastVisit: selectedPatient.lastVisit,
+              },
+            }
+          : null;
+
+        // Process with streaming and tool support
+        const result = await processInputWithTools(
           message.text,
           message.files.map((f) => ({
             id: f.url,
@@ -116,7 +143,7 @@ export function ChatContainer() {
             url: f.url,
             mediaType: f.mediaType || "application/octet-stream",
           })) as AttachmentType[],
-          null,
+          patientContext,
           (token) => {
             // Update streaming content and message on each token
             setStreamingContent((prev) => {
@@ -124,6 +151,10 @@ export function ChatContainer() {
               updateMessage(assistantMessageId, { content: newContent });
               return newContent;
             });
+          },
+          (toolCalls) => {
+            // Tool calls detected - the approval panel will show
+            console.log("Tool calls detected:", toolCalls);
           }
         );
 
@@ -143,7 +174,7 @@ export function ChatContainer() {
         setStreamingContent("");
       }
     },
-    [isReady, addMessage, updateMessage, setStatus, processInputStreaming]
+    [isReady, addMessage, updateMessage, setStatus, processInputWithTools, selectedPatient]
   );
 
   const handleSuggestionSelect = useCallback((prompt: string) => {
@@ -229,6 +260,9 @@ export function ChatContainer() {
               );
             })
           )}
+
+          {/* Tool Approval Panel - shows pending tool calls */}
+          {isAwaitingApproval && <ToolApprovalPanel />}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
@@ -241,6 +275,7 @@ export function ChatContainer() {
           multiple
           className="mx-auto max-w-3xl"
         >
+          <EHRConnectionBadge />
           <AttachmentsDisplay />
           <PromptInputTextarea
             placeholder={
@@ -261,6 +296,8 @@ export function ChatContainer() {
                 />
                 <PromptInputActionMenuContent>
                   <PromptInputActionAddAttachments label="Add images or documents" />
+                  <DropdownMenuSeparator />
+                  <EHRConnectorMenuItem />
                 </PromptInputActionMenuContent>
               </PromptInputActionMenu>
               <PromptInputButton tooltip="Voice input (coming soon)" disabled>
@@ -277,6 +314,9 @@ export function ChatContainer() {
           AI runs locally in your browser. Patient data never leaves your device.
         </p>
       </div>
+
+      {/* EHR Patient Selection Dialog */}
+      <PatientSelectionDialog />
     </div>
   );
 }

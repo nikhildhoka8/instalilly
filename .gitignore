@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# EHR working database (user data persistence)
+src/data/.ehr-database-working.json
