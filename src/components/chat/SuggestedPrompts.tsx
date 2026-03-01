@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
-import { FileText, FlaskConical, ClipboardList, AlertTriangle } from "lucide-react";
+import { FileText, Activity, PlusCircle } from "lucide-react";
 
 interface SuggestedPromptsProps {
   onSelect: (prompt: string) => void;
@@ -12,27 +12,21 @@ interface SuggestedPromptsProps {
 const SUGGESTED_PROMPTS = [
   {
     id: "medications",
-    title: "Summarize Medications",
+    title: "View Medications",
     icon: FileText,
-    prompt: "Please analyze the uploaded images and extract all medication information including drug names, dosages, and frequencies.",
+    prompt: "What medications is this patient on?",
   },
   {
-    id: "labs",
-    title: "Extract Lab Results",
-    icon: FlaskConical,
-    prompt: "Review the uploaded lab report and extract all test results. Highlight any values outside the normal range.",
+    id: "blood-pressure",
+    title: "Blood Pressure Chart",
+    icon: Activity,
+    prompt: "Can you show me this patients blood pressure over time?",
   },
   {
-    id: "summary",
-    title: "Pre-Visit Summary",
-    icon: ClipboardList,
-    prompt: "Create a pre-visit summary for this patient based on the uploaded documents. Include current medications, recent lab results, and any concerns.",
-  },
-  {
-    id: "interactions",
-    title: "Drug Interactions",
-    icon: AlertTriangle,
-    prompt: "Based on the patient's current medications, identify any potential drug interactions or contraindications.",
+    id: "add-medication",
+    title: "Add Medication from Image",
+    icon: PlusCircle,
+    prompt: "Based on my analysis, I want to recommend the medicine that I've added in the image to the user. Can you please add it to their list? It will be taken once every day. This will start on 02/28/2026",
   },
 ];
 
